@@ -1,10 +1,22 @@
 terraform {
-  required_version = ">= 1.0.0"
+  required_version = "~> 1.0"
 
   required_providers {
-    provider = {
-      source  = "hashicorp/random"
-      version = ">= 3.0.0"
+    github = {
+      source  = "integrations/github"
+      version = "~> 4.0"
     }
   }
+
+  backend "remote" {
+    organization = "fabiend"
+
+    workspaces {
+      name = "github-fabiendelpierre"
+    }
+  }
+}
+
+provider "github" {
+  token = var.github_personal_token
 }
